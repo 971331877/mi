@@ -103,3 +103,80 @@ function startFn() {
         st=setInterval(startFn,2000);
     }
 }
+// 家电
+{
+    var lists=document.querySelectorAll(".jiadian");
+    lists.forEach(function(ele){
+        content(ele);
+    });
+    function content(context){
+        var Btn=context.querySelectorAll(".youkuai a");
+        var hua=context.querySelectorAll(".jiadian-box2");
+
+        Btn.forEach(function (ele,index) {
+            ele.onmouseover=function(){
+                console.log(1);
+
+                hua.forEach(function(ele){
+                    ele.style.display="none";
+
+
+                })
+
+                hua[index].style.display="block";
+
+            }
+
+        })
+    };
+}
+
+//内容
+{
+    var lists=document.querySelectorAll(".neironga");
+    lists.forEach(function(ele){
+        content(ele);
+    });
+    function content(context) {
+        let inner=context.querySelector(".nr-box")
+        let prev=context.querySelector(".nr-box-zuo");
+        let next=context.querySelector(".nr-box-you");
+        let items=context.querySelectorAll(".nr-box1");
+        let pagers=context.querySelectorAll(".a1 .diandian li");
+     //   console.log(pagers)
+        let max=items.length;
+        let n=0;
+        next.onclick=function () {
+            n++;
+            if(n>=max){
+                n=max;
+                return;
+            }
+            inner.style.marginLeft=-n*296+"px";
+            changePager(n);
+        }
+        prev.onclick=function () {
+            n--;
+            if(n<0){
+                n=0;
+                return;
+            }
+            inner.style.marginLeft=-n*296+"px";
+            changePager(n);
+        }
+        pagers.forEach(function (ele,index) {
+            ele.onclick=function () {
+                n=index;
+                changePager(index);
+            };
+        });
+
+        function changePager(n) {
+            for(let i=0;i<pagers.length;i++){
+                pagers[i].classList.remove("active");
+            }
+            pagers[n].classList.add("active");
+            inner.style.marginLeft=-n*296+"px";
+        }
+    }
+}
